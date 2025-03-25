@@ -1,0 +1,62 @@
+<div class="min-h-screen bg-gray-100 p-6">
+    <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+      <img src="MPloyChek New.jpg" class="h-12 w-auto" alt="logo">
+      <button (click)="logout()"  class="bg-purple-700 text-white px-4 py-2 rounded hover:bg-purple-400">
+        Logout
+      </button>
+    </nav>
+  
+    <div class="mt-6">
+      <h2 class="text-xl font-semibold">Welcome {{currentUser.username}}</h2>
+      
+      <div class="mt-4 grid grid-cols-2 gap-4">
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-lg font-bold">User Info</h3>
+          <p><strong>Username:</strong>{{currentUser.username}} </p>
+          <p><strong>Role:</strong>{{currentUser.role}}</p>
+        </div>
+  
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-lg font-bold">Recent Activities</h3>
+          <ul class="list-disc pl-5">
+            <li>Logged in successfully</li>
+            <li>Viewed dashboard</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="loading">Loading users...</div>
+    <table class="w-full mt-4 border-collapse border border-gray-300" *ngIf="!loading">
+        <tr class="bg-gray-200">
+          <th class="border border-gray-300 p-2">Username</th>
+          <th class="border border-gray-300 p-2">Role</th>
+          <th class="border border-gray-300 p-2" *ngIf="currentUser.role === 'Admin'">Actions</th>
+        </tr>
+        <tr *ngFor="let user of users">
+          <td class="border border-gray-300 p-2">{{ user.username }}</td>
+          <td class="border border-gray-300 p-2">{{ user.role }}</td>
+          <td class="border border-gray-300 p-2" *ngIf="currentUser.role === 'Admin'">
+            <button class="bg-red-500 text-white px-3 py-1 rounded" (click)="deleteUser(user._id)">Delete</button>
+          </td>
+        </tr>
+      </table>
+    
+      <div *ngIf="currentUser.role === 'Admin'" class="mt-4">
+        <h3 class="text-lg font-bold">Add New User</h3>
+        <input class="border p-2" [(ngModel)]="newUser.username" placeholder="Username" />
+        <input class="border p-2" [(ngModel)]="newUser.password" placeholder="Password" type="password" />
+        <select class="border p-2" [(ngModel)]="newUser.role">
+          <option value="User">User</option>
+          <option value="Admin">Admin</option>
+        </select>
+        <button class="bg-blue-500 text-white px-3 py-1 rounded" (click)="addUser()">Add User</button>
+      </div>
+    </div>
+    
+    <div *ngIf="currentUser.role !== 'Admin'" class="mt-4">
+      <p class="text-gray-600">You have limited access.</p>
+    </div>
+  
+
+
+ 
