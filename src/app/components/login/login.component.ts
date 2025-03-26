@@ -17,7 +17,7 @@ export class LoginComponent {
   password='';
   errorMessage: string = '';
 
-  private apiUrl = 'http://localhost:5000/login';
+  private apiUrl = 'https://spa-backend-ntdb.onrender.com/login';
   constructor(private router: Router, private http: HttpClient) {}
   login() {
     if (!this.username || !this.password) {

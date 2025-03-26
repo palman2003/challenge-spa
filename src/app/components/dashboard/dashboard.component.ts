@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit{
   users: any[] = [];
   loading: boolean = true;
   newUser = { username: '', password: '', role: 'User' };
-  apiUrl = 'http://localhost:5000/users';
+  apiUrl = 'https://spa-backend-ntdb.onrender.com/users';
 
   currentUser: any = null;
 
